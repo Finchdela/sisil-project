@@ -32,15 +32,6 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/laporan-kerusakan', [LaporanKerusakanController::class, 'adminIndex'])->name('admin.laporan-kerusakan');
     Route::post('/laporan-kerusakan/{id}/update-status', [LaporanKerusakanController::class, 'updateStatus'])->name('admin.laporan-kerusakan.update-status');
 });
-Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
-    // Routes untuk manajemen ruangan
-    Route::get('/ruangan', [RuanganController::class, 'index'])->name('ruangan.index');
-    Route::get('/ruangan/create', [RuanganController::class, 'create'])->name('ruangan.create');
-    Route::post('/ruangan', [RuanganController::class, 'store'])->name('ruangan.store');
-    Route::get('/ruangan/{id}/edit', [RuanganController::class, 'edit'])->name('ruangan.edit');
-    Route::put('/ruangan/{id}', [RuanganController::class, 'update'])->name('ruangan.update');
-    Route::delete('/ruangan/{id}', [RuanganController::class, 'destroy'])->name('ruangan.destroy');
-});
 
 // Route testing sementara (letakkan di atas route lainnya)
 Route::get('/test-auth', function () {
@@ -121,5 +112,16 @@ Route::get('/create-admin', function () {
     } else {
         echo "Admin sudah ada!";
     }
+});
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    // ... routes lainnya
+    
+    // Routes untuk manajemen ruangan
+    Route::get('/ruangan', [RuanganController::class, 'index'])->name('ruangan.index');
+    Route::get('/ruangan/create', [RuanganController::class, 'create'])->name('ruangan.create');
+    Route::post('/ruangan', [RuanganController::class, 'store'])->name('ruangan.store');
+    Route::get('/ruangan/{id}/edit', [RuanganController::class, 'edit'])->name('ruangan.edit');
+    Route::put('/ruangan/{id}', [RuanganController::class, 'update'])->name('ruangan.update');
+    Route::delete('/ruangan/{id}', [RuanganController::class, 'destroy'])->name('ruangan.destroy');
 });
 });

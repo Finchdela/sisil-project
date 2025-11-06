@@ -54,26 +54,27 @@ class RuanganController extends Controller
     }
 
     public function update(Request $request, $id)
-    {
-        $validator = Validator::make($request->all(), [
-            'nama_ruangan' => 'required|string|max:255',
-            'lokasi' => 'required|string|max:255',
-            'kapasitas' => 'required|integer',
-            'deskripsi' => 'nullable|string',
-        ]);
+{
+    $validator = Validator::make($request->all(), [
+        'nama_ruangan' => 'required|string|max:255',
+        'lokasi' => 'required|string|max:255',
+        'kapasitas' => 'required|integer',
+        'status' => 'required|in:tersedia,tidak_tersedia',
+        'deskripsi' => 'nullable|string',
+    ]);
 
-        if ($validator->fails()) {
-            return redirect()->back()
-                ->withErrors($validator)
-                ->withInput();
-        }
-
-        $ruangan = Ruangan::findOrFail($id);
-        $ruangan->update($request->all());
-
-        return redirect()->route('admin.ruangan.index')
-            ->with('success', 'Ruangan berhasil diperbarui');
+    if ($validator->fails()) {
+        return redirect()->back()
+            ->withErrors($validator)
+            ->withInput();
     }
+
+    $ruangan = Ruangan::findOrFail($id);
+    $ruangan->update($request->all());
+
+    return redirect()->route('admin.ruangan.index')
+        ->with('success', 'Ruangan berhasil diperbarui');
+}
 
     public function destroy($id)
     {
