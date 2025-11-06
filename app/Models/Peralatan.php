@@ -10,13 +10,26 @@ class Peralatan extends Model
     use HasFactory;
 
     protected $table = 'peralatan';
-
+    
     protected $fillable = [
-        'nama_alat', 'kategori', 'jumlah_total', 'jumlah_tersedia', 'kondisi'
+        'ruangan_id',
+        'nama_alat',
+        'kode_alat',
+        'merk',
+        'tipe',
+        'jumlah',
+        'kondisi',
+        'status',
+        'deskripsi'
     ];
 
-    public function peminjamanDetail()
+    public function ruangan()
     {
-        return $this->hasMany(PeminjamanDetailAlat::class, 'alat_id');
+        return $this->belongsTo(Ruangan::class, 'ruangan_id');
+    }
+
+    public function laporanKerusakan()
+    {
+        return $this->hasMany(LaporanKerusakan::class, 'alat_id');
     }
 }

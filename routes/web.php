@@ -6,6 +6,8 @@ use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\PeralatanController;
+use App\Http\Controllers\Admin\RuanganController;
 
 // Public Routes
 Route::get('/', function () {
