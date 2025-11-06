@@ -9,13 +9,19 @@
                     <h4>Edit Ruangan</h4>
                 </div>
                 <div class="card-body">
+                    @if(session('error'))
+                        <div class="alert alert-danger">{{ session('error') }}</div>
+                    @endif
+
                     <form action="{{ route('admin.ruangan.update', $ruangan->id) }}" method="POST">
                         @csrf
                         @method('PUT')
+                        
                         <div class="mb-3">
                             <label for="nama_ruangan" class="form-label">Nama Ruangan</label>
                             <input type="text" class="form-control @error('nama_ruangan') is-invalid @enderror" 
-                                   id="nama_ruangan" name="nama_ruangan" value="{{ old('nama_ruangan', $ruangan->nama_ruangan) }}" required>
+                                   id="nama_ruangan" name="nama_ruangan" 
+                                   value="{{ old('nama_ruangan', $ruangan->nama_ruangan) }}" required>
                             @error('nama_ruangan')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -24,7 +30,8 @@
                         <div class="mb-3">
                             <label for="lokasi" class="form-label">Lokasi</label>
                             <input type="text" class="form-control @error('lokasi') is-invalid @enderror" 
-                                   id="lokasi" name="lokasi" value="{{ old('lokasi', $ruangan->lokasi) }}" required>
+                                   id="lokasi" name="lokasi" 
+                                   value="{{ old('lokasi', $ruangan->lokasi) }}" required>
                             @error('lokasi')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -33,8 +40,21 @@
                         <div class="mb-3">
                             <label for="kapasitas" class="form-label">Kapasitas</label>
                             <input type="number" class="form-control @error('kapasitas') is-invalid @enderror" 
-                                   id="kapasitas" name="kapasitas" value="{{ old('kapasitas', $ruangan->kapasitas) }}" required>
+                                   id="kapasitas" name="kapasitas" 
+                                   value="{{ old('kapasitas', $ruangan->kapasitas) }}" required>
                             @error('kapasitas')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="status" class="form-label">Status</label>
+                            <select class="form-control @error('status') is-invalid @enderror" 
+                                    id="status" name="status" required>
+                                <option value="tersedia" {{ old('status', $ruangan->status) == 'tersedia' ? 'selected' : '' }}>Tersedia</option>
+                                <option value="tidak_tersedia" {{ old('status', $ruangan->status) == 'tidak_tersedia' ? 'selected' : '' }}>Tidak Tersedia</option>
+                            </select>
+                            @error('status')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
